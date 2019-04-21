@@ -3,7 +3,7 @@ VOLUME ["/data"]
 ENV email=emailaddress@notdefined.yet
 ENV password=undefined
 ENV doorbell=0
-ENV numberOfImages=20
+ENV fps=1
 ENV archivePath=
 RUN apk --update add --no-cache py-pip
 RUN apk --update add --no-cache imagemagick
