@@ -3,7 +3,7 @@ if [[ $pythonRunning == "1" ]]; then
   mkdir -p /data
   touch /data/previous.recording
   results=$(python /check_last_recording.py)
-  if [[ $results = *Updates* ]]; then
+  if [[ $results == *"Updates"* ]]; then
     echo "Download complete, beginning image extraction..."
     /usr/bin/ffmpeg -i "/data/last_recording.mp4" -vf fps=$fps "/data/frame-%03d.jpg" -hide_banner
     #optimize images
