@@ -16,5 +16,5 @@ ENTRYPOINT ["/sbin/tini", "--"]
 RUN wget https://raw.githubusercontent.com/devinslick/RinGIF/master/RinGIF.sh
 RUN wget https://raw.githubusercontent.com/devinslick/RinGIF/master/check_last_recording.py
 RUN chmod a+x *.sh
-RUN echo '*  *  *  *  *    /RinGIF.sh' > /etc/crontabs/root
+RUN echo '* * * * * /RinGIF.sh' > /etc/crontabs/root
 CMD ["/usr/sbin/crond", "-f"]
