@@ -7,7 +7,7 @@ with open('/data/previous.recording', 'r') as recording:
   old = str(recording.read())
 recording.close()
 if old != recordingID:
-  print("Updates needed")
+  print("Updates")
   doorbell = myring.doorbells[0]
   doorbell.recording_download(doorbell.history(limit=100)[0]['id'],filename='/data/last_recording.mp4',override=True)
   with open('/data/previous.recording', 'w') as tracker:
