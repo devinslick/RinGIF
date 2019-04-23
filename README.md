@@ -1,6 +1,9 @@
 # RinGIF
 Turn your ring doorbell videos into a GIFs to review them for suspicious activity.
 
+https://github.com/devinslick/RinGIF
+https://hub.docker.com/r/devinslick/ring_video_doorbell_gif
+
 Prerequisites:
 -Ring doorbell or camera with a subscription.  
 -Basic docker understanding
