@@ -1,4 +1,4 @@
-# RinGIF <img src="samples/1.gif" align="right" height=108/>
+# RinGIF <img src="sample.gif" align="right" height=108/>
 
 ## Overview
 <br>
