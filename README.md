@@ -23,7 +23,8 @@ docker run -d --env email=myemailaddress@domain
 | email | emailaddress@notdefined.yet | True | Email associated with your Ring account, must be defined |
 | password  | undefined  | True | Password for your Ring account, must be defined  |
 | doorbell  | 0  | False | Index of the doorbell/camera on your account to use for this container |
-| fps  | 1  | False | Frames per second to save in the GIF |
+| fps  | 1  | False | Change to increase the number of frames per second |
+| resolution | 192x108 | False | Controls the GIF output resolution |
 
 ## Planned Features
 - a web server inside the container for easier access
