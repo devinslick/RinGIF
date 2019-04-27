@@ -4,6 +4,7 @@ ENV email=emailaddress@notdefined.yet
 ENV password=undefined
 ENV doorbell=0
 ENV fps=1
+ENV resolution=192x108
 ENV archivePath=
 RUN apk --update add --no-cache py-pip
 RUN apk --update add --no-cache imagemagick

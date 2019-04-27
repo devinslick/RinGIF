@@ -9,7 +9,7 @@ if [[ $pythonRunning == "1" ]]; then
     find /data/ -name "*.jpg" -type f -exec jpegtran -copy none -optimize -outfile {} {} \;
     #downsize and convert to a GIF
     echo "Building GIF..."
-    /usr/bin/convert -delay 20 -loop 0 /data/*.jpg -resize 192x108 /data/latest.gif
+    /usr/bin/convert -delay 20 -loop 0 /data/*.jpg -resize $resolution /data/latest.gif
     #delete the JPGs
     rm -rf /data/*jpg
     # optional feature to be added using the archivePath environmental variable
