@@ -19,5 +19,5 @@ ENTRYPOINT ["/sbin/tini", "--"]
 RUN wget https://raw.githubusercontent.com/devinslick/RinGIF/master/start.sh
 RUN wget https://raw.githubusercontent.com/devinslick/RinGIF/master/download.py
 RUN chmod a+x *.sh
-RUN echo '* * * * * /main.sh' > /etc/crontabs/root
+RUN echo '* * * * * /start.sh' > /etc/crontabs/root
 CMD ["/usr/sbin/crond", "-f"]
