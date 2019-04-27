@@ -13,13 +13,17 @@ These are useful for archiving, sharing, and for embedding in Home Assistant!
 ## Examples
 
 ```bash
-docker run -d --env email=myemailaddress@domain.com --env password=MySecretPass --name RinGIF-Example-1 devinslick/ring_video_doorbell_gif
+#Minimal example
+docker run -d --env email=myemailaddress@domain.com --env password=MySecretPass\
+--name RinGIF-Example-1 devinslick/ring_video_doorbell_gif
 
 #Use non-default file names in the output
-docker run -d --env email=myemailaddress@domain.com --env password=MySecretPass --env vidName=doorbell.mp4 --env gifName=doorbell.gif --name RinGIF-Example-2 devinslick/ring_video_doorbell_gif
+docker run -d --env email=myemailaddress@domain.com --env password=MySecretPass\
+--env vidName=doorbell.mp4 --env gifName=doorbell.gif --name RinGIF-Example-2 devinslick/ring_video_doorbell_gif
 
 #Get a higher quality image from your second Ring device
-docker run -d --env email=myemailaddress@domain.com --env password=MySecretPass --env fps=2 --env resolution 284x216 --env doorbell=1 --name RinGIF-Example-3 devinslick/ring_video_doorbell_gif
+docker run -d --env email=myemailaddress@domain.com --env password=MySecretPass\
+--env fps=2 --env resolution 284x216 --env doorbell=1 --name RinGIF-Example-3 devinslick/ring_video_doorbell_gif
 
 
 ```
@@ -56,7 +60,7 @@ docker run -d --env email=myemailaddress@domain.com --env password=MySecretPass 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Please make sure to update tests and this README as appropriate.
+Please make sure to update this README with usage and examples.
 
 ## Credits
 [Ring SDK](https://github.com/tchellomello/python-ring-doorbell/) is used to query Ring servers and download new videos when available.
