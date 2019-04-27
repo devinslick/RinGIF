@@ -1,7 +1,7 @@
 pythonRunning=$(ps -ef | grep python | wc -l)
 if [[ $pythonRunning == "1" ]]; then
   touch /data/previous.recording
-  results=$(python /check_last_recording.py)
+  results=$(python /download.py)
   if [[ $results == "Updates" ]]; then
     echo "Download complete, beginning image extraction..."
     /usr/bin/ffmpeg -i "/data/$vidName.mp4" -vf fps=$fps "/data/frame-%03d.jpg" -hide_banner

@@ -17,7 +17,7 @@ RUN pip install ring_doorbell
 WORKDIR /
 ENTRYPOINT ["/sbin/tini", "--"]
 RUN wget https://raw.githubusercontent.com/devinslick/RinGIF/master/RinGIF.sh
-RUN wget https://raw.githubusercontent.com/devinslick/RinGIF/master/check_last_recording.py
+RUN wget https://raw.githubusercontent.com/devinslick/RinGIF/master/download.py
 RUN chmod a+x *.sh
 RUN echo '* * * * * /RinGIF.sh' > /etc/crontabs/root
 CMD ["/usr/sbin/crond", "-f"]
