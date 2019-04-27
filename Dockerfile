@@ -3,6 +3,8 @@ VOLUME ["/data"]
 ENV email=emailaddress@notdefined.yet
 ENV password=undefined
 ENV doorbell=0
+ENV vidName=last_recording.mp4
+ENV gifName=latest.gif
 ENV fps=1
 ENV resolution=192x108
 ENV archivePath=

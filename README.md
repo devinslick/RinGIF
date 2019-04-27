@@ -2,11 +2,12 @@
 
 <img src="sample.gif" align="right" height=108/>
 
-RinGIF is a docker image that will automatically download Ring videos and convert them into GIFs
+RinGIF is a docker image that will automatically download Ring videos and 
+convert them into GIFs.
 These are useful for archiving, sharing, and for embedding in Home Assistant!
 
 ## Requirements
--Ring Doorbell or Camera with subscription
+- Ring Doorbell / Camera with a paid subscription
 
 
 ## Installation
@@ -25,12 +26,12 @@ docker run -d --env email=myemailaddress@domain
 | doorbell  | 0  | False | Index of the doorbell/camera on your account to use for this container |
 | fps  | 1  | False | Change to increase the number of frames per second |
 | resolution | 192x108 | False | Controls the GIF output resolution |
+| vidName | last_recording.mp4 | False | Change to control the output video file name |
+| gifName | latest.gif | False | Change to control the output GIF file name |
 
 ## Planned Features
 - a web server inside the container for easier access
-- a variable to control the resolution of the gif
-- a variable to control the name of the video to save
-- a variable to control the name of the output gif
+- continually loop to check Ring, stop using a minute cronjob 
 
 ## FAQ
 - Where is my video/gif?

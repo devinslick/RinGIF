@@ -4,12 +4,12 @@ if [[ $pythonRunning == "1" ]]; then
   results=$(python /check_last_recording.py)
   if [[ $results == "Updates" ]]; then
     echo "Download complete, beginning image extraction..."
-    /usr/bin/ffmpeg -i "/data/last_recording.mp4" -vf fps=$fps "/data/frame-%03d.jpg" -hide_banner
+    /usr/bin/ffmpeg -i "/data/$vidName.mp4" -vf fps=$fps "/data/frame-%03d.jpg" -hide_banner
     #optimize images
     find /data/ -name "*.jpg" -type f -exec jpegtran -copy none -optimize -outfile {} {} \;
     #downsize and convert to a GIF
     echo "Building GIF..."
-    /usr/bin/convert -delay 20 -loop 0 /data/*.jpg -resize $resolution /data/latest.gif
+    /usr/bin/convert -delay 20 -loop 0 /data/*.jpg -resize $resolution /data/$gifName.gif
     #delete the JPGs
     rm -rf /data/*jpg
     # optional feature to be added using the archivePath environmental variable
