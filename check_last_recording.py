@@ -1,5 +1,5 @@
 from ring_doorbell import Ring
-import osi
+import os
 destPath = '/data/' + os.environ['vidName']
 myring = Ring(os.environ['email'], os.environ['password'])
 doorbell = myring.doorbells[0]
