@@ -16,8 +16,7 @@ RUN apk --update add --no-cache tini
 RUN pip install ring_doorbell
 WORKDIR /
 ENTRYPOINT ["/sbin/tini", "--"]
-RUN wget https://raw.githubusercontent.com/devinslick/RinGIF/master/start.sh
-RUN wget https://raw.githubusercontent.com/devinslick/RinGIF/master/download.py
+ADD . /
 RUN chmod a+x *.sh
 RUN echo '* * * * * /start.sh' > /etc/crontabs/root
 CMD ["/usr/sbin/crond", "-f"]
