@@ -3,8 +3,9 @@
 <img src="sample.gif" align="right" height=108/>
 
 RinGIF is a docker image that will automatically download Ring videos and 
-convert them into GIFs.
-These are useful for archiving, sharing, and for embedding in Home Assistant!
+convert them into GIFs.  It will loop through all of your ring camera devices,
+check for new videos, download them, create JPGs, and then turn these into GIFs.
+These are great for quick review of security events, for archiving, sharing, and for embedding in Home Assistant!
 
 ## Requirements
 - Ring Doorbell / Camera with a paid subscription
@@ -18,26 +19,14 @@ docker run -d --env email=myemailaddress@domain.com \
 --env password=MySecretPass \
 --name RinGIF-Example-1 \
 devinslick/ring_video_doorbell_gif
-/
 
-#Use non-default file names in the output
-docker run -d --env email=myemailaddress@domain.com \
---env password=MySecretPass \
---env vidName=doorbell.mp4 \
---env gifName=doorbell.gif \
---name RinGIF-Example-2 \
-devinslick/ring_video_doorbell_gif
-/
-
-#Get a higher quality image from your second Ring device
+#Get a higher quality images
 docker run -d --env email=myemailaddress@domain.com \
 --env password=MySecretPass \
 --env fps=2 \
 --env resolution 284x216 \
---env doorbell=1 \
---name RinGIF-Example-3 \
+--name RinGIF-Example-2 \
 devinslick/ring_video_doorbell_gif
-/
 
 ```
 
@@ -47,20 +36,19 @@ devinslick/ring_video_doorbell_gif
 | ------------- | ------------- | ------------- | ------------- |
 | email | emailaddress@notdefined.yet | True | Email associated with your Ring account, must be defined |
 | password  | undefined  | True | Password for your Ring account, must be defined  |
-| doorbell  | 0  | False | Index of the doorbell/camera on your account to use for this container |
 | fps  | 1  | False | Change to increase the number of frames per second |
 | resolution | 192x108 | False | Controls the GIF output resolution |
-| vidName | last_recording.mp4 | False | Change to control the output video file name |
-| gifName | latest.gif | False | Change to control the output GIF file name |
 
 ## Planned Features
 - a web server inside the container for easier access
-- continually loop to check Ring, stop using a minute cronjob 
 
 ## FAQ
 - Where is my video/gif?
 
-  The latest video and gif will be kept on the docker volume mounted at /data.
+  The latest videos and gifs will be kept on the docker volume mounted at /data.
+
+  You can copy the latest GIF for your first doorbell from the container to the host's temp directory using a command like this:
+  - docker cp ringif:/data/doorbell0.gif /tmp/myDoorbell.gif
 
 - How am I supposed to get to the video/gif and share it?
 
