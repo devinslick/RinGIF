@@ -9,6 +9,7 @@ RUN apk --update add --no-cache imagemagick
 RUN apk --update add --no-cache ffmpeg
 RUN apk --update add --no-cache libjpeg-turbo-utils
 RUN apk --update add --no-cache tini
+RUN apk --update add --no-cache jpegoptim
 RUN pip install ring_doorbell
 RUN pip install wget
 RUN pip install ffmpeg-python
