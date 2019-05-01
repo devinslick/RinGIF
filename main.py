@@ -12,15 +12,15 @@ resolution = str(os.environ['resolution'])
 fps = str(os.environ['fps'])
 
 def isLatest(recordingID):                                                              
-  if os.path.exists('device_tracking.db'):
-    with open('device_tracking.db', 'rt') as f:                                           
+  if os.path.exists('/data/device_tracking.db'):
+    with open('/data/device_tracking.db', 'rt') as f:                                           
       reader = csv.reader(f, delimiter=',')                                               
       for row in reader:                                                                  
         if str(recordingID) == row[2]:                                                    
           return "true"                                                                   
       return "false" 
   else:
-    with open('device_tracking.db', 'w+') as db:
+    with open('/data/device_tracking.db', 'w+') as db:
       db.write('DeviceType,DeviceID,RecordingID\n')
     return "false"
 
@@ -61,7 +61,7 @@ while True:
           gifCmd = "convert -delay 20 -loop 0 /data/doorbell"+str(d)+"*.jpg -resize " + resolution + " /data/doorbell" + str(d) + ".gif"                 
           os.system(gifCmd)                                                               
           print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": gif created.  Saving index of converted video file")                                                                              
-          with open('device_tracking.db', mode='a') as db:                                                                                         
+          with open('/data/device_tracking.db', mode='a') as db:                                                                                         
             dbo = csv.writer(db, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)                                                          
             dbo.writerow(['doorbell', d, str(doorbells.last_recording_id)])                                                                        
           clearJpgCmd = "rm -f /data/doorbell"+str(d)+"*.jpg"                                                                               

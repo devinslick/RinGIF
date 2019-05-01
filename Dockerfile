@@ -4,12 +4,15 @@ ENV email=emailaddress@notdefined.yet
 ENV password=undefined
 ENV fps=1
 ENV resolution=192x108
+ENV timezone=America/Chicago
 RUN apk --update add --no-cache py-pip
 RUN apk --update add --no-cache imagemagick
 RUN apk --update add --no-cache ffmpeg
 RUN apk --update add --no-cache libjpeg-turbo-utils
 RUN apk --update add --no-cache tini
 RUN apk --update add --no-cache jpegoptim
+RUN apk --update add --no-cache tzdata
+RUN ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
 RUN pip install ring_doorbell
 RUN pip install wget
 RUN pip install ffmpeg-python

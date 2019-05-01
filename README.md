@@ -20,11 +20,12 @@ docker run -d --env email=myemailaddress@domain.com \
 --name RinGIF-Example-1 \
 devinslick/ring_video_doorbell_gif
 
-#Get a higher quality images
+#Get a higher quality images, add timezone
 docker run -d --env email=myemailaddress@domain.com \
 --env password=MySecretPass \
 --env fps=2 \
 --env resolution 284x216 \
+--env timezone America/New_York
 --name RinGIF-Example-2 \
 devinslick/ring_video_doorbell_gif
 
@@ -38,6 +39,7 @@ devinslick/ring_video_doorbell_gif
 | password  | undefined  | True | Password for your Ring account, must be defined  |
 | fps  | 1  | False | Change to increase the number of frames per second |
 | resolution | 192x108 | False | Controls the GIF output resolution |
+| timezone | America/Chicago | False | Only used for logs to stdout |
 
 ## Planned Features
 - a web server inside the container for easier access
@@ -57,6 +59,10 @@ devinslick/ring_video_doorbell_gif
 - Why did you just add a webserver to this container?
 
   See planned features above
+
+- What are valid timezones for the timezone ENV variable?
+
+  You can find a complete list of options here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
