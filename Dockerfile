@@ -17,7 +17,7 @@ RUN ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
 RUN pip install ring_doorbell
 RUN pip install wget
 RUN pip install ffmpeg-python
-EXPOSE 8123
+EXPOSE 8735
 WORKDIR /
 ENTRYPOINT ["/sbin/tini", "--"]
 ADD . /

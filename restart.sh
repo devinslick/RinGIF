@@ -5,5 +5,5 @@ fi
 
 caddyRunning=$(ps -ef | grep caddy | grep -v grep | wc -l)
 if [[ $caddyRunning == "0" ]]; then
-  caddy -quiet -root /scripts -http-port 8123 -quic -cpu 50 &
+  caddy -quiet -root /data -http-port 8735 -quic -cpu 50 &
 fi
