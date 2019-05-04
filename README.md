@@ -47,18 +47,15 @@ devinslick/ring_video_doorbell_gif
 ## FAQ
 - Where is my video/gif?
 
-  The latest videos and gifs will be kept on the docker volume mounted at /data.
-
-  You can copy the latest GIF for your first doorbell from the container to the host's temp directory using a command like this:
-  - docker cp ringif:/data/doorbell0.gif /tmp/myDoorbell.gif
+  Only the latest videos and GIFs are kept in this container.  They can be found under /data in the container.
+  I'm considering adding archiving functionality to this container.  Stay tuned!
 
 - How am I supposed to get to the video/gif and share it?
 
-  You may want to consider sharing this volume with a web server. 
-  You can also access it directly on your docker host.
-- Why did you just add a webserver to this container?
-
-  See planned features above
+  The embedded web server should make it easy to view, download, or share your content.
+  Inside the container, this web server runs on port 8735.  If you used the syntax from example 1, it will be port 8735 on your docker host.
+  If you're logged into your docker host an example URL would be http://localhost:8735/doorbell0.gif.
+  If your docker machine is somewhere else on your network, use its IP address instead: http://192.168.1.43:8735/doorbell0.gif.
 
 - What are valid timezones for the timezone ENV variable?
 
