@@ -14,14 +14,14 @@ These are great for quick review of security events, for archiving, sharing, and
 ## Examples
 
 ```bash
-#Minimal example
-docker run -d --env email=myemailaddress@domain.com \
+#Minimal example with web server on port 8735
+docker run -d -p=8735:8735/tcp --env email=myemailaddress@domain.com \
 --env password=MySecretPass \
 --name RinGIF-Example-1 \
 devinslick/ring_video_doorbell_gif
 
-#Get a higher quality images, add timezone
-docker run -d --env email=myemailaddress@domain.com \
+#Get a higher quality images, add timezone, publish port to port assigned by Docker
+docker run -d --publish-all --env email=myemailaddress@domain.com \
 --env password=MySecretPass \
 --env fps=2 \
 --env resolution 284x216 \
