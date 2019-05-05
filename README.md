@@ -14,17 +14,18 @@ These are great for quick review of security events, for archiving, sharing, and
 ## Examples
 
 ```bash
-#Minimal example
-docker run -d --env email=myemailaddress@domain.com \
+#Minimal example with web server on port 8735
+docker run -d -p=8735:8735/tcp --env email=myemailaddress@domain.com \
 --env password=MySecretPass \
 --name RinGIF-Example-1 \
 devinslick/ring_video_doorbell_gif
 
-#Get a higher quality images
-docker run -d --env email=myemailaddress@domain.com \
+#Get a higher quality images, add timezone, publish port to port assigned by Docker
+docker run -d --publish-all --env email=myemailaddress@domain.com \
 --env password=MySecretPass \
 --env fps=2 \
 --env resolution 284x216 \
+--env timezone America/New_York
 --name RinGIF-Example-2 \
 devinslick/ring_video_doorbell_gif
 
@@ -38,6 +39,7 @@ devinslick/ring_video_doorbell_gif
 | password  | undefined  | True | Password for your Ring account, must be defined  |
 | fps  | 1  | False | Change to increase the number of frames per second |
 | resolution | 192x108 | False | Controls the GIF output resolution |
+| timezone | America/Chicago | False | Only used for logs to stdout |
 
 ## Planned Features
 - a web server inside the container for easier access
@@ -45,18 +47,19 @@ devinslick/ring_video_doorbell_gif
 ## FAQ
 - Where is my video/gif?
 
-  The latest videos and gifs will be kept on the docker volume mounted at /data.
-
-  You can copy the latest GIF for your first doorbell from the container to the host's temp directory using a command like this:
-  - docker cp ringif:/data/doorbell0.gif /tmp/myDoorbell.gif
+  Only the latest videos and GIFs are kept in this container.  They can be found under /data in the container.
+  I'm considering adding archiving functionality to this container.  Stay tuned!
 
 - How am I supposed to get to the video/gif and share it?
 
-  You may want to consider sharing this volume with a web server. 
-  You can also access it directly on your docker host.
-- Why did you just add a webserver to this container?
+  The embedded web server should make it easy to view, download, or share your content.
+  Inside the container, this web server runs on port 8735.  If you used the syntax from example 1, it will be port 8735 on your docker host.
+  If you're logged into your docker host an example URL would be http://localhost:8735/doorbell0.gif.
+  If your docker machine is somewhere else on your network, use its IP address instead: http://192.168.1.43:8735/doorbell0.gif.
 
-  See planned features above
+- What are valid timezones for the timezone ENV variable?
+
+  You can find a complete list of options here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
