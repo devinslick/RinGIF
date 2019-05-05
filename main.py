@@ -32,7 +32,7 @@ def deviceCheck(device,type,i):
       print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": Invalid URL returned.  Exiting")
       sys.exit(1)
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ': Starting download for ' + type + ' #' + str(i) + '. Recording: ' + str(device.last_recording_id) ) 
-    wgetCmd = 'wget -O /data/' + type + str(i) +'.mp4 -U "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2460.41 Safari/537.36" + url
+    wgetCmd = 'wget -O /data/' + type + str(i) +'.mp4 -U "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2460.41 Safari/537.36" ' + url
     os.system(wgetCmd)
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": Download complete, starting ffmpeg")
     (                                                                                                                                         
@@ -41,15 +41,16 @@ def deviceCheck(device,type,i):
       .filter('fps', fps=fps, round='up')                                                                                                       
       .output('/data/' + type + str(i) + '-%03d.jpg')                                                                                            
       .run()                                                                                                                                  
-    )                                                                                                                                         
+    )                                                                                                 
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": ffmpeg complete, starting jpeg optimization")
     jpgCmd = 'jpegoptim -f -q -s /data/' + type + str(i) + '-*.jpg'                                  
     os.system(jpgCmd)                                                                                      
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": jpeg optimization complete, creating gif")
-    gifCmd = 'convert -delay 20 -loop 0 /data/' + type + str(i) + '*.jpg -resize ' + resolution + ' /data/' + type + str(i) + '.gif'                 
+    gifCmd = 'convert -delay 20 -loop 0 /data/' + type + str(i) + '*.jpg -resize ' + resolution + ' /data/' + type + str(i) + '.gif'
+    os.system('rm -f /data/*.jpg')
+
 
 os.system("rm -f /data/*.jpg")  
-
 while True:
   try:
     if myring.is_connected != True:
@@ -57,7 +58,6 @@ while True:
       myring = Ring(email, password)
     if myring.is_connected == True:
       print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": Ring.com connection is healthy.")
-
       for d, doorbell in enumerate(myring.doorbells):
         deviceCheck(doorbell,"doorbell",d)
       for s, stickup in enumerate(myring.stickup_cams):
@@ -65,12 +65,7 @@ while True:
       for c, chime in enumerate(myring.chimes):
         deviceCheck(chime,"chime",c)
       time.sleep(5)
-       
   except NameError:
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": Connecting to Ring.com.")
     myring = Ring(email, password)
-
-
-#for chimes in myring.doorbells:
-#for stickup_cams in myring.doorbells:
 
