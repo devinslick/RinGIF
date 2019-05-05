@@ -3,6 +3,8 @@ import os
 import csv
 import time
 import datetime
+import ffmpeg
+import wget
  
 email = str(os.environ['email'])
 password = str(os.environ['password'])
@@ -27,26 +29,30 @@ def deviceCheck(device,type,i):
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": " + type + str(i) + ", recording " + str(device.last_recording_id) + " was already saved.")
   else:
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": Getting recording URL for " + type + " #" + str(i) + ". RecordingID: " + str(device.last_recording_id) )
-    url=str(device.recording_url(doorbells.last_recording_id))       
+    url=str(device.recording_url(doorbell.last_recording_id))       
     if "https" not in url:
       print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": Invalid URL returned.  Exiting")
       sys.exit(1)
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ': Starting download for ' + type + ' #' + str(i) + '. Recording: ' + str(device.last_recording_id) ) 
-    wgetCmd = 'wget -O /data/' + type + str(i) +'.mp4 -U "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2460.41 Safari/537.36" ' + url
+    wgetCmd = 'wget -O /data/' + type + str(i) +'.mp4 -U "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2460.41 Safari/537.36" "' + url + '"'
     os.system(wgetCmd)
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": Download complete, starting ffmpeg")
     (                                                                                                                                         
       ffmpeg                                                                                                                                  
       .input('/data/' + type + str(i) + '.mp4')                                                                                                  
       .filter('fps', fps=fps, round='up')                                                                                                       
-      .output('/data/' + type + str(i) + '-%03d.jpg')                                                                                            
+      .output("/data/" + type + str(i) + "%03d.jpg")                                                                                            
       .run()                                                                                                                                  
     )                                                                                                 
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": ffmpeg complete, starting jpeg optimization")
-    jpgCmd = 'jpegoptim -f -q -s /data/' + type + str(i) + '-*.jpg'                                  
+    jpgCmd = 'jpegoptim -f -q -s /data/' + type + str(i) + '*.jpg'                                  
     os.system(jpgCmd)                                                                                      
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": jpeg optimization complete, creating gif")
-    gifCmd = 'convert -delay 20 -loop 0 /data/' + type + str(i) + '*.jpg -resize ' + resolution + ' /data/' + type + str(i) + '.gif'
+    gifCmd = "convert -delay 20 -loop 0 /data/" + type + str(i) + "*.jpg -resize " + resolution + " /data/" + type + str(i) + ".gif"
+    os.system(gifCmd)                                                                                      
+    with open('/data/device_tracking.db', mode='a') as db:                
+      dbo = csv.writer(db, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)                                                          
+      dbo.writerow([type, i, str(device.last_recording_id)])   
     os.system('rm -f /data/*.jpg')
 
 
