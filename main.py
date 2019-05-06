@@ -29,7 +29,7 @@ def deviceCheck(device,type,i):
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": " + type + str(i) + ", recording " + str(device.last_recording_id) + " was already saved.")
   else:
     print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": Getting recording URL for " + type + " #" + str(i) + ". RecordingID: " + str(device.last_recording_id) )
-    url=str(device.recording_url(doorbell.last_recording_id))       
+    url=str(device.recording_url(device.last_recording_id))       
     if "https" not in url:
       print(datetime.datetime.now().replace(microsecond=0).isoformat() + ": Invalid URL returned.  Exiting")
       sys.exit(1)
