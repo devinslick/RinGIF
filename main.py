@@ -44,7 +44,7 @@ def deviceCheck(device,type,i):
     log(type + str(i), "recording " + str(device.last_recording_id) + " was already saved.")
   else:
     log(type + str(i), "getting URL for recording " + str(device.last_recording_id))
-    url=str(device.recording_url(doorbell.last_recording_id))       
+    url=str(device.recording_url(device.last_recording_id))       
     if "https" not in url:
       log(type + str(i), "invalid URL! Exiting")
       sys.exit(1)
