@@ -20,10 +20,9 @@ docker run -d -p=8735:8735/tcp --env email=myemailaddress@domain.com \
 --name RinGIF-Example-1 \
 devinslick/ring_video_doorbell_gif
 
-#Get a higher quality images, add timezone, publish port to port assigned by Docker
+#Add timezone, resolution, and publish port to port assigned by Docker
 docker run -d --publish-all --env email=myemailaddress@domain.com \
 --env password=MySecretPass \
---env fps=2 \
 --env resolution 284x216 \
 --env timezone America/New_York
 --name RinGIF-Example-2 \
@@ -37,18 +36,16 @@ devinslick/ring_video_doorbell_gif
 | ------------- | ------------- | ------------- | ------------- |
 | email | emailaddress@notdefined.yet | True | Email associated with your Ring account, must be defined |
 | password  | undefined  | True | Password for your Ring account, must be defined  |
-| fps  | 1  | False | Change to increase the number of frames per second |
-| resolution | 192x108 | False | Controls the GIF output resolution |
 | timezone | America/Chicago | False | Only used for logs to stdout |
+| resolution | 192x108 | False | Controls the GIF output resolution |
 
 ## Planned Features
-- a web server inside the container for easier access
+- gif/mp4 archiving, retention schedules
 
 ## FAQ
 - Where is my video/gif?
 
-  Only the latest videos and GIFs are kept in this container.  They can be found under /data in the container.
-  I'm considering adding archiving functionality to this container.  Stay tuned!
+  Only the latest videos and GIFs are kept in this container.  They can be found under /data or accessed via the built in web server.
 
 - How am I supposed to get to the video/gif and share it?
 
