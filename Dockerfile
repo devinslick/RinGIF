@@ -19,6 +19,7 @@ EXPOSE 8735
 WORKDIR /
 ENTRYPOINT ["/sbin/tini", "--"]
 ADD . /
+HEALTHCHECK CMD nc localhost:443 -znv || exit 1
 RUN chmod a+x *.sh
 RUN echo '* * * * * /restart.sh' > /etc/crontabs/root
 CMD ["/usr/sbin/crond", "-f"]
