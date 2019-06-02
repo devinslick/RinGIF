@@ -4,11 +4,12 @@
 
 RinGIF is a docker image that will automatically download Ring videos and 
 convert them into GIFs.  It will loop through all of your ring camera devices,
-check for new videos, download them, create JPGs, and then turn these into GIFs.
-These are great for quick review of security events, for archiving, sharing, and for embedding in Home Assistant!
+check for new videos, download them, and create a GIF for you using the most interesting frames.
+You'll usually see a 20MB video convert down to under 100KB.
+These are great for quick review of security events, archiving, sharing, and for embedding in Home Assistant!
 
 ## Requirements
-- Ring Doorbell / Camera with a paid subscription
+- Ring Doorbell, Chime, and/or Stick-up Cameras with a paid subscription
 
 
 ## Examples
@@ -50,13 +51,20 @@ devinslick/ring_video_doorbell_gif
 - How am I supposed to get to the video/gif and share it?
 
   The embedded web server should make it easy to view, download, or share your content.
-  Inside the container, this web server runs on port 8735.  If you used the syntax from example 1, it will be port 8735 on your docker host.
-  If you're logged into your docker host an example URL would be http://localhost:8735/doorbell0.gif.
-  If your docker machine is somewhere else on your network, use its IP address instead: http://192.168.1.43:8735/doorbell0.gif.
+  Inside the container, this web server runs on port 8735.  If you used the syntax from example 1, it will be port 8735 on your docker host.  If you're running docker locally, you can navigate to the web server by going to http://localhost:8735/.  
+  Here you'll find videos and gifs for each of your Ring stickup cams, doorbells, and chimes.
 
 - What are valid timezones for the timezone ENV variable?
 
   You can find a complete list of options here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+- What if one of my Ring devices doesn't have a subscription?
+
+  RinGIF won't be able to download videos for that device.
+
+- What if I only want RinGIF to run against a subset of the Ring devices on my account?
+
+  Create a new Ring account for RinGIF and share the cameras with this account.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
