@@ -17,11 +17,10 @@ RUN ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
 RUN pip3 install --upgrade pip
 RUN pip3 install ring_doorbell
 RUN pip3 install wget
+HEALTHCHECK CMD wget --spider -q -T 3 http://localhost:8735 || echo 1
 EXPOSE 8735
 WORKDIR /
-ENTRYPOINT ["/sbin/tini", "--"]
 ADD . /
-HEALTHCHECK CMD wget --spider -q -T 3 http://localhost:8735 || echo 1
-RUN chmod a+x *.sh
-RUN echo '* * * * * /restart.sh' > /etc/crontabs/root
-CMD ["/usr/sbin/crond", "-f"]
+RUN echo '* * * * * /start.sh' > /etc/crontabs/root
+#ENTRYPOINT ["/start.sh", "--"]
+CMD /start.sh
