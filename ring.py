@@ -19,12 +19,12 @@ def isLatest(recordingID):
     with open('/data/device_tracking.db', 'rt') as f:                                           
       reader = csv.reader(f, delimiter=',')                                               
       for row in reader:                                                                  
-        if str(recordingID) == row[2]:                                                    
+        if str(recordingID) == row[3]:                                                    
           return "true"                                                                   
       return "false" 
   else:
     with open('/data/device_tracking.db', 'w+') as db:
-      db.write('DeviceType,DeviceID,RecordingID\n')
+      db.write('Timestamp,DeviceType,DeviceID,RecordingID\n')
     return "false"
 
 def mp4optimizer(file,sensitivity="0.015"):
@@ -63,7 +63,8 @@ def deviceCheck(device,type,i):
     os.system(gifCmd)                                                                                      
     with open('/data/device_tracking.db', mode='a') as db:                
       dbo = csv.writer(db, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)                                                          
-      dbo.writerow([type, i, str(device.last_recording_id)])   
+      timestamp=datetime.datetime.now().replace(microsecond=0).isoformat()
+      dbo.writerow([timestamp, type, i, str(device.last_recording_id)])   
     os.system('rm -f /data/*.jpg')
     os.system('rm -f /data/*-trim.mp4')
     os.system('rm -f /data/*-sense.mp4')
